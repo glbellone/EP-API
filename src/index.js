@@ -44,6 +44,21 @@ app.post('/series',(req, res)=>{
     res.status(201).json(serie);
 });
 
+app.put('/series/:id',(req, res)=>{
+    const id = req.params.id
+    const idx = series.findIndex(serie => serie.id == id)
+    const serieBody = req.body
+    if(idx > 0){
+        const serie = {id:series[idx].id, ...serieBody}
+        series[idx] = serie
+        res.status(200).json(serie);
+    }
+    else{
+        res.status(201).json(serie);
+    }
+
+});
+
 app.listen(PORT,()=>{
     console.log(`App lista escuchando en ${PORT}`)
 })
